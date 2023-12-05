@@ -1,0 +1,9 @@
+user:
+  name: user
+  image:
+    url: ncostamagna/axul_user
+    version: 1.0.3
+  port:
+    http: 8082
+    node: 30001
+  replicas: 1
