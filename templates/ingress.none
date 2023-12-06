@@ -1,0 +1,31 @@
+
+# No funciona la pija esta, fuck microk8s
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name}}-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  defaultBackend:
+    service:
+      name: {{ .Release.Name}}-{{.Values.user.name}}-api
+      port:
+        number: {{.Values.user.port.http}}
+  rules:
+  - http:
+      paths:
+      - path: /users
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name}}-{{.Values.user.name}}-api
+            port:
+              number: {{.Values.user.port.http}}
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name}}-{{.Values.user.name}}-api
+            port:
+              number: {{.Values.user.port.http}}
